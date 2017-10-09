@@ -6,23 +6,21 @@ public class Calculator {
     static {
         for(BinaryOperation binaryOperation: BinaryOperation.values()){
             operationsHashMap.put(binaryOperation.getOperator(), binaryOperation);
-            //System.out.println(binaryOperation.name());
         }
     }
 
     private static boolean isNumeric(String string){
-        return string.chars().allMatch( Character::isDigit);
+        return string.chars().allMatch(Character::isDigit);
     }
 
     public double calculate(String operation){
         String[] words = operation.split(" ");
-        if(words.length == 2){
-            //we have a unary operation(SQRT is the only one in our case)
+        if(words.length == 2){ //we have a unary operation(SQRT is the only one in our case)
             double number = Double.parseDouble(words[1]);
             return Math.sqrt(number);
         }
         else{
-            if(isNumeric(words[0])){ //binary operators like(+, -. /, *)
+            if(isNumeric(words[0])){ //binary operators like(+, -, /, *)
                 double firstNumber = Double.parseDouble(words[0]);
                 String operator = words[1];
                 double secondNumber = Double.parseDouble(words[2]);
