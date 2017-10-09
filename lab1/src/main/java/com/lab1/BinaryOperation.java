@@ -1,3 +1,5 @@
+package com.lab1;
+
 interface Operation{
    double apply(double x, double y);
 }
