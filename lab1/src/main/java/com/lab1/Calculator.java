@@ -12,6 +12,8 @@ public class Calculator {
     }
 
     private static boolean isNumeric(String string){
+        if(string.charAt(0) == '-')
+            string = string.substring(1);
         return string.chars().allMatch(Character::isDigit);
     }
 

@@ -26,8 +26,8 @@ public class TestCalculator {
 
     @Test
     public void testSubstraction() {
-        String operation = "1 - 2";
-        double expectedResult = -1.0;
+        String operation = "-1 - 2";
+        double expectedResult = -3.0;
         assertEquals(expectedResult, calculator.calculate(operation),0D);
     }
 
@@ -54,8 +54,8 @@ public class TestCalculator {
 
     @Test
     public void testMinimum() {
-        String operation = "min 5 6";
-        double expectedResult = 5.0;
+        String operation = "min -5 6";
+        double expectedResult = -5.0;
         assertEquals(expectedResult, calculator.calculate(operation), 0D);
     }
     @Test
