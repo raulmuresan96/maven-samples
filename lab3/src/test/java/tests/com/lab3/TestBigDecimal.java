@@ -1,9 +1,4 @@
 package tests.com.lab3;
-
-
-
-
-
 import lab3.BigDecimalOperations;
 import org.junit.Assert;
 import org.junit.Before;
@@ -18,15 +13,13 @@ import java.util.List;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
-
-
 /**
  * Created by Raul on 04/11/2017.
  */
 public class TestBigDecimal {
 
     private List<BigDecimal> bigDecimals = new ArrayList<>();
-    private String fileName = "/Users/Raul/Documents/toraCourse/ToraCourse/lab3/src/main/java/lab3/BigDecimals";
+    private String fileName = "src/main/java/lab3/BigDecimals";
 
     @Before
     public void setup() {

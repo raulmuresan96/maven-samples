@@ -14,10 +14,6 @@ public class Main {
 
     public static BigDecimal computeSum(List<BigDecimal> BigDecimals){
 
-
-        //BigDecimal sum = BigDecimal.ZERO;
-
-
         BigDecimal sum = BigDecimals.stream()
 //                .reduce(BigDecimal.ZERO, (a, b) -> {
 //                    a = a.add(b);

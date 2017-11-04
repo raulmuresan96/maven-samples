@@ -2,6 +2,7 @@ package lab3;
 
 import java.io.*;
 import java.math.BigDecimal;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -15,13 +16,12 @@ public class BigDecimalOperations {
 
 
     private static void serializeLambdaExpression(){
-        //addition of two BigDecimals
         BinaryOperator<BigDecimal> operator = ( BinaryOperator<BigDecimal> & Serializable) (a, b) -> {
                 a = a.add(b);
                 return a;
         };
 
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("/Users/Raul/Documents/toraCourse/ToraCourse/lab3/src/main/java/lab3/LambdaSerialization"))){
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/main/java/lab3/LambdaSerialization"))){
             oos.writeObject(operator);
         }
         catch(FileNotFoundException fnfe) {
@@ -33,7 +33,7 @@ public class BigDecimalOperations {
 
     private static BinaryOperator<BigDecimal> deserializeLambdaExpression(){
         BinaryOperator<BigDecimal> bigDecimalOperator = null;
-        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("/Users/Raul/Documents/toraCourse/ToraCourse/lab3/src/main/java/lab3/LambdaSerialization"))){
+        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/main/java/lab3/LambdaSerialization"))){
             bigDecimalOperator = (BinaryOperator<BigDecimal>) ois.readObject();
         }
         catch(FileNotFoundException fnfe) {
