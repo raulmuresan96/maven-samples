@@ -6,13 +6,16 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Created by Raul on 03/11/2017.
  */
 public class BigDecimalOperations {
+    private static Random random = new Random();
 
 
     private static void serializeLambdaExpression(){
@@ -83,46 +86,55 @@ public class BigDecimalOperations {
 
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))){
 
-//            BinaryOperator<BigDecimal> operator = ( BinaryOperator<BigDecimal> & Serializable) (a, b) -> {
-//                a = a.add(b);
-//                return a;
-//            };
-            for(BigDecimal bigDecimal: bigDecimals){
-                oos.writeObject(bigDecimal);
-            }
+            bigDecimals.forEach(bigDecimal ->{
+                try {
+                    oos.writeObject(bigDecimal);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+
         }
         catch(FileNotFoundException fnfe) {
             System.err.println("cannot create a file with the given file name ");
         } catch(IOException ioe) {
             System.err.println("an I/O error occurred while processing the file");
         }
-
     }
 
 
-    public static List<BigDecimal> deserialize(String fileName){
+    public static List<BigDecimal> deserialize(String fileName, int nrElements){
         List<BigDecimal> bigDecimals = new ArrayList<>();
         try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))){
+            IntStream.rangeClosed(1, nrElements)
+                    .forEach(i ->{
 
-            //BinaryOperator<BigDecimal> binaryOperator = (BinaryOperator<BigDecimal>) ois.readObject();
-            //BigDecimal result = binaryOperator.apply(new BigDecimal("100"), new BigDecimal("50"));
-
-
-            for(int  i = 1; i <= 100; i++) {
-                Object obj = ois.readObject();
-                BigDecimal bd = (BigDecimal)obj;
-                bigDecimals.add(bd);
-            }
+                        BigDecimal bd = null;
+                        try {
+                            bd = (BigDecimal)ois.readObject();
+                        } catch (IOException | ClassNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        bigDecimals.add(bd);
+                    });
 
         }catch(FileNotFoundException fnfe) {
             System.err.println("cannot create a file with the given file name ");
         } catch(IOException ioe) {
             System.err.println("an I/O error occurred while processing the file");
         }
-        catch(ClassNotFoundException cnfe) {
-            System.err.println("Class not found");
-        }
 
         return bigDecimals;
     }
+
+    public static String generateBigDecimal(){
+        int length = 50 + random.nextInt(50);
+        StringBuilder stringBuilder = new StringBuilder();
+        IntStream.range(0, length)
+                .forEach(i -> stringBuilder.append(random.nextInt(10)));
+
+        return stringBuilder.toString();
+    }
+
+
 }
