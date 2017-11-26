@@ -25,6 +25,7 @@ public class TestTimeBigDecimal {
     private List<BigDecimal> bigDecimals = new ArrayList<>();
     private List<MyBigDecimal> customBigDecimals = new ArrayList<>();
     private String fileName = "src/main/java/lab3/LargeBigDecimals";
+    private String fileNameMyBigDecimal = "src/main/java/lab3/MyBigDecimals";
     private final int nrCount = 1_000_000;
 
 
@@ -44,16 +45,16 @@ public class TestTimeBigDecimal {
     @Test
     public void testMyBigDecimal(){
         long startTime =  System.nanoTime();
-        MyBigDecimalOperations.serialize(fileName, customBigDecimals);
+        MyBigDecimalOperations.serialize(fileNameMyBigDecimal, customBigDecimals);
 
-        List<MyBigDecimal> deserializedlist = MyBigDecimalOperations.deserialize(fileName,nrCount);
+        List<MyBigDecimal> deserializedlist = MyBigDecimalOperations.deserialize(fileNameMyBigDecimal,nrCount);
 
         long timeElapsed = System.nanoTime() - startTime;
         System.out.println("MyBigDecimal: Elapsed time in Milliseconds: " + TimeUnit.NANOSECONDS.toMillis(timeElapsed));
 
         IntStream.range(0, deserializedlist.size())
                 .forEach(i -> {
-                    assertThat( deserializedlist.get(i).getBigDecimal() ,is( bigDecimals.get(i)));
+                    assertThat( deserializedlist.get(i).getBigDecimal() ,is( customBigDecimals.get(i).getBigDecimal()));
                 });
     }
 

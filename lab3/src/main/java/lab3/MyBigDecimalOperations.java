@@ -37,7 +37,7 @@ public class MyBigDecimalOperations {
                     .forEach(i ->{
                         MyBigDecimal bd = null;
                         try {
-                            bd = (MyBigDecimal)ois.readObject();
+                            bd = MyBigDecimal.deserialize(ois); //(MyBigDecimal)ois.readObject();
                         } catch (IOException | ClassNotFoundException e) {
                             e.printStackTrace();
                         }
