@@ -8,13 +8,13 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by Raul on 21/11/2017.
  */
-public class WriteThread implements Runnable {
+public class WriteThread<T> implements Runnable {
     private volatile boolean  finishedRead = false;
-    private BlockingQueue<Person> blockingQueue;
+    private BlockingQueue<T> blockingQueue;
     private String fileName;
 
 
-    public WriteThread(String fileName, BlockingQueue<Person> blockingQueue){
+    public WriteThread(String fileName, BlockingQueue<T> blockingQueue){
         this.blockingQueue = blockingQueue;
         this.fileName = fileName;
     }
@@ -25,14 +25,13 @@ public class WriteThread implements Runnable {
 
     @Override
     public void run() {
-
         try (BufferedWriter br = new BufferedWriter(new FileWriter(fileName))){
-
             while (!finishedRead || blockingQueue.size() > 0){
                 try {
-                    Person person = blockingQueue.poll(500, TimeUnit.MILLISECONDS);
-                    if(person != null){
-                        br.write(person.toString() + "\n");
+                    T entity = blockingQueue.poll(500, TimeUnit.MILLISECONDS);
+                    //System.out.println(entity);
+                    if(entity != null){
+                        br.write(entity.toString() + "\n");
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();

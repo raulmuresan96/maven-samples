@@ -26,7 +26,6 @@ public class ReadThread implements Runnable {
                 ) {
             return false;
         }
-
         return true;
     }
 
@@ -45,7 +44,9 @@ public class ReadThread implements Runnable {
             String[] fields = line.split("~");
             if(validatePerson(fields)){
                 try {
+                    //System.out.println("producer");
                     blockingQueue.put(createPerson(fields));
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

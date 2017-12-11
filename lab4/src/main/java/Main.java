@@ -18,7 +18,7 @@ public class Main {
 
         BlockingQueue<Person> blockingQueue = new LinkedBlockingDeque<>();
         ReadThread readThread = new ReadThread("../ToraCourse/lab4/src/main/resources/input4.txt", blockingQueue);
-        WriteThread writeThread = new WriteThread("../ToraCourse/lab4/src/main/resources/validPersons.txt", blockingQueue);
+        WriteThread<Person> writeThread = new WriteThread<>("../ToraCourse/lab4/src/main/resources/validPersons.txt", blockingQueue);
 
        Thread thread1 = new Thread(readThread);
        Thread thread2 = new Thread(writeThread);
@@ -37,12 +37,6 @@ public class Main {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-
-
-
-
-
 
 //        String text = new String(Files.readAllBytes(Paths.get("../ToraCourse/lab4/src/main/resources/input4.txt")));
 //        createPerson(text).forEach((value) -> {
