@@ -98,13 +98,18 @@ public class UserThread implements Runnable {
                             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                             BufferedReader in = new BufferedReader(
                                     new InputStreamReader(socket.getInputStream()));
+                            connections.put(receiver, socket);
                             out.println("!Hello " + username);
                             String response = in.readLine();
                             if (response.equals("!ack")) {
-                                connections.put(receiver, socket);
+
                                 //System.out.println("connection esblished");
                                 handleWrite(out, receiver);
                             }
+                            else{
+                                connections.remove(receiver);
+                            }
+
                             System.out.println(username + " " + connections);
                         } catch (IOException e) {
                             System.out.println("Connection to " + receiver + " refused");
